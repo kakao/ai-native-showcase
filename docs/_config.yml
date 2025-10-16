@@ -1,0 +1,29 @@
+title: AI Native Showcase
+remote_theme: just-the-docs/just-the-docs
+plugins:
+  - jekyll-remote-theme
+baseurl: "/ai-native-showcase"
+search_enabled: true
+color_scheme: brand
+
+# Repository settings for GitHub link
+gh_edit_repository: "https://github.com/kakao/ai-native-showcase"
+gh_edit_link: true
+gh_edit_link_text: "View on GitHub"
+
+# Kramdown TOC settings
+kramdown:
+  toc_levels: "1..6"  # Collect all heading levels for debugging
+  auto_ids: true
+  parse_block_html: true
+  parse_span_html: true
+
+defaults:
+  - scope:
+      path: "en"
+    values:
+      lang: "en"
+  - scope:
+      path: "ko"
+    values:
+      lang: "ko"

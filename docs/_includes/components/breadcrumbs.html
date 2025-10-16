@@ -1,0 +1,30 @@
+{%- comment -%}
+  Simple breadcrumbs override showing only parent + current
+  Uses a much simpler approach than the original complex navigation parsing
+{%- endcomment -%}
+
+{%- if page.parent and page.title -%}
+  {%- assign parent_pages = site.html_pages | where: "title", page.parent -%}
+  {%- if parent_pages.size > 0 -%}
+    {%- assign parent_page = parent_pages[0] -%}
+    <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+      <ol class="breadcrumb-nav-list">
+        <li class="breadcrumb-nav-list-item">
+          <a href="{{ parent_page.url | relative_url }}" class="breadcrumb-nav-list-link">{{ page.parent }}</a>
+        </li>
+        <li class="breadcrumb-nav-list-item">
+          <span>{{ page.title }}</span>
+        </li>
+      </ol>
+    </nav>
+  {%- else -%}
+    {%- comment -%} Fallback: just show current page if parent not found {%- endcomment -%}
+    <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+      <ol class="breadcrumb-nav-list">
+        <li class="breadcrumb-nav-list-item">
+          <span>{{ page.title }}</span>
+        </li>
+      </ol>
+    </nav>
+  {%- endif -%}
+{%- endif -%}

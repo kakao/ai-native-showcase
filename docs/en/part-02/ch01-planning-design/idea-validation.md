@@ -1,0 +1,130 @@
+---
+layout: default
+title: '1.2. Innovation in idea verification and development flow using AI tools'
+parent: 'Chapter 1. AI-based planning and design, development productivity'
+nav_order: 2
+permalink: /en/part-02/ch01-planning-design/idea-validation/
+author: herschel.alway
+---
+
+# 1.2. Innovation in idea verification and development flow using AI tools
+
+Every AI development team faces a dilemma. "What if we try this model structure?" "Should we experiment with a new dataset?" "Adding this feature would make users happy." "If only we had that tool, development would be so much easier." These ideas keep coming up, but when it comes to implementation, they often hit a wall of reality. This is because it is burdensome to distribute resources and try various approaches simultaneously when the results are uncertain. 
+
+A tool that you have spent several weeks developing may not be very useful or may not actually be used by the team. Due to these risks, decisions on resource allocation for development are continually delayed, and ultimately, good ideas remain just ideas.
+
+The areas that AI developers need to deal with are broader than you might think. From data pipelines to labeling tools, data quality management, and preprocessing automation, you need to handle everything related to data. In the model development stage, research, experiment management, performance optimization, and A/B testing await, and in the service operation stage, API development, monitoring, and distribution pipelines must be managed. 
+
+It takes a considerable amount of time to develop tools to ensure expertise and quality in each area. However, in reality, there is not enough time to respond perfectly in all areas. In this situation, a development approach utilizing AI tools provides a practical alternative to resolve this dilemma.
+
+When you come up with an idea, the first thing you should do is verify it. However, this verification process itself can be carried out much more systematically and quickly with the help of AI. 
+
+First, ask AI tools such as ChatGPT or Claude to research your idea. If you ask them to "investigate existing solutions to this problem and technical approaches," the AI will organize relevant technologies, open-source projects, and commercial solutions. In this process, we sometimes discover existing solutions that we had overlooked, or conversely, confirm the originality of our ideas.
+
+![Example of actual conversation with AI: MLflow Alternative Idea Verification Process]({{ site.baseurl }}/images/03bb4c9e019900001.png)
+
+The next step is to evaluate the contribution to achieving the goals. If you ask the AI, "The team's main goals are A, B, and C. Please analyze how much this idea can contribute to each goal," the AI will prioritize them from an objective perspective and quantitatively estimate the expected impact.
+
+AI can also assist in analyzing technical feasibility. You can discuss the necessary technology stack, estimated development time, and potential technical risks with AI to establish a realistic development plan. In particular, AI plays a role in alerting us to technical pitfalls that could easily be overlooked.
+
+![AI research results example: Automatic creation of comprehensive guide documents]({{ site.baseurl }}/images/03bc435e019900001.png)
+
+> Results of AI research on MLOps tools. We recommended AIM and Weights* Biases and provided research on lightweight MLOps based on trends and user experience. In addition, we provide code examples and steps for the implementation method so that you can quickly review the ideas.
+
+Finally, you can leverage AI's creativity in the idea refinement stage. By asking, "What are the weaknesses of this idea, and how can it be improved?", AI will suggest improvement directions from various perspectives. Sometimes AI proposes innovative approaches that you may not have thought of.
+
+## AI Fair Programming in Practice
+
+Once the idea has been verified, we move on to the full-scale development stage. At this point, AI pair programming dramatically increases development speed.
+
+It then generates code that matches the selected architecture.
+
+AI is also extremely helpful during the refactoring stage. When you show existing code and ask, "Please improve this code to make it easier to read and maintain," AI improves the code structure and suggests better patterns. AI is particularly helpful in separating complex logic into multiple functions and removing redundant code.
+
+AI also bridges the gap in technical expertise across different technology stacks. For example, if an AI developer with limited front-end development experience needs to create a web dashboard, they can ask the AI, "I want to create a data visualization dashboard using React. Please provide me with some best practices." AI recommends appropriate libraries and provides structured code examples.
+
+It is also important to find a balance between development speed and quality. Rather than blindly trusting code generated by AI, it is important to review the core logic yourself and write sufficient tests. AI is a partner that helps with rapid prototyping, not a magic tool that does everything for you.
+
+## The process of developing from a prototype to an MVP
+
+The process of developing a prototype created quickly with the help of AI into an actual usable MVP must also be approached systematically.
+
+The goal of the prototype stage is to verify that the core idea actually works. Keep the UI minimal and consider error handling and exceptions later. The important thing is to quickly verify that the core functions work as expected.
+
+Collecting user feedback is the most important part of MVP development. Have a few members of your team try out the prototype and ask them for honest feedback on what they find useful and what they find inconvenient. At this point, you can use AI tools to analyze feedback and prioritize it. If you ask the AI, "We have this feedback. Which should we address first?", it will suggest priorities based on impact and development difficulty.
+
+Once the core functions have been finalized through the verification cycle, we begin building the MVP in earnest. At this stage, we focus on error handling, performance optimization, and user experience improvement. AI tools continue to help with these improvements. For example, if you ask, "How can I improve the performance of this function?", it will suggest various methods such as caching, batch processing, and algorithm optimization.
+
+Let's take a look at two examples to see how AI-based idea validation and development processes actually work. These cases are not simply introductions to completed projects, but rather focus on the process of quickly verifying ideas with AI and applying them in real-world situations.
+
+## Case 1: Ark - A simple MLOps tool
+
+MLflow, an open-source tool commonly used in MLOps, is an excellent tool for managing machine learning experiments, but it has been too complex for small teams or individual projects. We considered introducing MLflow within our team, but hesitated due to the time required for learning and the burden of operating the infrastructure.
+
+There were three major issues. 
+
+First, it took a considerable amount of learning time to properly utilize MLflow. It was expected to take several weeks to read the official documentation, follow the tutorials, and customize them to suit the team's situation. 
+
+Second, even after implementation, continuous resources were required for infrastructure operation and management. We ended up spending time on tasks that were not core tasks, such as database management, server operation, and backup. 
+
+Third, only 20% of MLflow's total functionality was actually needed, but we had to deal with the complexity of the remaining 80%.
+
+To solve this problem, we started looking for alternatives with AI. After going through the idea verification process with Claude, as shown in the example above, we decided on a direction and then used Cursor IDE and Claude Code for the actual implementation. "I want to create a simple experiment management tool by extracting only the core features that are actually necessary in MLflow." 
+
+Starting with the question, "Which features are the highest priority, and what architecture should we start with?", we connected the dots all the way to the actual code implementation.
+
+AI proposed four core functions: experimental metadata storage, hyperparameter tracking, performance metric comparison, and model version management. And we recommended a lightweight architecture based on SQLite. Instead of a complex distributed system, we decided to use a single file database and start with a lightweight framework such as Flask for the web server. 
+
+The prototype development process using Cursor IDE and Claude Code was surprisingly fast. Without AI tools, the estimated development time would have been reduced by approximately 70%. The biggest advantage was that it required almost no operational resources. All we needed was a single SQLite file and a few Python scripts, so there was no need to manage any additional infrastructure.
+
+As a result, we were able to build an experiment management environment that can be applied immediately without any learning costs. Team members gained a simple tool that could be learned in five minutes instead of complex MLflow, and the burden of infrastructure operations was completely eliminated. Of course, it doesn't have as many features as MLflow, but it only has the features that are really necessary, so it was actually easier to use.
+
+The UI/UX development process was particularly noteworthy. Even AI developers with no knowledge of React, Next.js, or TypeScript were able to implement a platform-optimized user interface through AI Vibe coding. AI abstracts the complexity of the modern web development stack, allowing developers to focus on "what functionality is needed." As a result, we were able to complete a high-quality web interface that can be used immediately in practical applications without the burden of learning a new technology stack.
+
+The key point of this case is that, in a situation where a simple learning history system was needed, MLflow open source was discovered during the review process, but it was determined that it would require a steeper learning curve and higher infrastructure management costs than expected. As a result, we were able to quickly create a simple alternative with AI by selecting only the features that were truly necessary. The entire process was completed quickly, allowing us to immediately confirm the practicality of the idea.
+
+## Case 2: LLM automatic classification system
+
+This is an example of idea verification that originated from the recognition that "Isn't it inefficient to create a new model every time due to different harmful content standards for each platform?" The problem we encountered when developing a content classification system was that harmful content standards differed across platforms. Each platform had different policies and classification criteria. With the traditional approach, separate models would have had to be developed and trained for each platform. However, this approach had scalability issues. 
+
+First, customizing models for each platform required high costs and efforts from AI developers. Every time a new platform was added, we had to repeat the entire pipeline of data collection, labeling, model training, and evaluation. Second, there was the burden of having to redevelop the model every time the policy changed. The platform's policies change frequently depending on business conditions, and if AI developers had to intervene each time, there would be limitations in scalability.
+
+Discussing this issue with AI, we found a new approach. An architecture idea based on "base model + system prompt" emerged. The idea was that AI developers would develop powerful base models and system prompts that could be used universally, and then handle platform-specific policies with user prompts.
+
+The specific implementation method is as follows. AI developers design system prompts specialized for content classification. This system prompt is "You are a content classification expert. Define clearly the elements to be considered during the classification process and the output format, along with role definitions such as "Classify content accurately according to the given criteria."
+
+Platform managers collaborate with AI services such as ChatGPT and Claude to write their platform policies as user prompts. For example, "Our platform prohibits political content, violent content, and adult content." Please classify according to the following criteria: ... Create specific policies as prompts in the format "..."
+
+Ultimately, the combination of "system prompt + user prompt" acts as a single classification model. When new content arrives, it is sent to the model along with the combined prompt, and the model returns classification results that comply with platform-specific policies. 
+
+The biggest innovation of this approach is that it creates a self-service structure that allows platform-specific policies to be applied without the intervention of AI developers. Even if policies change, platform managers only need to modify the prompts, and even if new platforms are added, existing system prompts can be reused. AI developers can now utilize the base system they have created on multiple platforms, and platform managers can reflect their policies in the system without technical knowledge.
+
+However, this project ultimately failed. Although it was excellent in theory, unexpected problems arose during actual operation. However, the real value of this case lies in the fact that we were able to quickly implement the idea that "creating separate models for each platform is inefficient" with AI, experience failure in a short period of time, and accumulate valuable experience in the process. If we had built a perfect system over several months using traditional methods and then failed, the loss would have been much greater. 
+
+Through rapid prototyping with AI, we were able to validate key hypotheses at a low cost, and the insights learned from failures contributed significantly to the achievement of subsequent project goals.
+
+## Transformation from AI Vibecoding to Production
+
+While it is easy to quickly create prototypes with AI, bringing them to a level where they can be used in actual production environments is a separate issue. Above all, it is necessary to build trust in the code generated by AI.
+
+The most important thing is to create a systematic verification process for AI-generated code. AI generates grammatically correct and logically valid code, but it may have limitations in subtle aspects of business logic and exception handling. Therefore, the core logic must be reviewed by human developers and sufficient test cases must be written.
+
+In the prototype stage, the focus is on "Does it work?", but in the production stage, the focus shifts to "Does it work reliably?" AI can also help in this regard. If you ask it to "find possible exceptions in this code" or "write code to test the edge cases¹ of this function," AI will point out areas that you might have missed or overlooked.
+
+When applying AI-centric development results to production, several evaluation criteria must be applied.
+
+First, from a performance perspective, you need to verify that the code generated by AI can handle actual usage. What worked with simple logic in the prototype may cause performance issues with actual data volumes. AI can also help you at this point. If you ask, "How can I improve the performance of this function?", it will suggest various optimization methods such as caching, batch processing, and asynchronous processing.
+
+From a security perspective, it is necessary to check that the code generated by AI does not contain any security vulnerabilities. AI follows general security best practices, but may not fully reflect specific security requirements for each project. Therefore, security reviews must be led by humans.
+
+Maintainability is also an important evaluation criterion. You need to make sure that the code generated by AI has a structure that is easy to modify or expand later. We check whether the code is written in an easy-to-read manner, whether it is well modularized, and whether there are sufficient comments and documentation.
+
+Cultural changes are also needed within teams to accept AI-generated code. Some developers may have doubts about code written by AI. To address these concerns, it is necessary to clearly define quality standards for AI-generated code and transparently share the verification process. And AI-generated code should also undergo the same code review process as other code so that the entire team can have confidence in the code quality.
+
+Ultimately, AI is just a tool that speeds up development; human developers are still responsible for code quality and stability. It is important to develop faster and more efficiently through collaboration with AI, but without compromising production-level quality standards.
+
+-----
+
+## Footnotes
+
+1) An edge case where the behavior or outcome of software or a system changes due to unexpected situations or specific conditions

@@ -1,0 +1,27 @@
+{%- comment -%}
+  Language-scoped search index for Just the Docs.
+{%- endcomment -%}
+{%- assign inferred_lang = "en" -%}
+{%- if page.url contains "/ko/" -%}
+  {%- assign inferred_lang = "ko" -%}
+{%- endif -%}
+{%- assign current_lang = page.lang | default: inferred_lang -%}
+{%- assign prefix = "/" | append: current_lang | append: "/" -%}
+
+{%- assign pages_all = site.html_pages | where_exp: "p","p.search_exclude != true" -%}
+{%- assign by_lang = pages_all | where: "lang", current_lang -%}
+{%- if by_lang == empty -%}
+  {%- assign by_lang = pages_all | where_exp: "p","p.url contains prefix" -%}
+{%- endif -%}
+
+[
+{%- for page in by_lang -%}
+  {%- assign title = page.title | default: site.title | jsonify -%}
+  {%- assign url = page.url | relative_url | jsonify -%}
+  {%- assign description = page.description | default: site.description | jsonify -%}
+  {%- assign content = page.content
+    | strip_html | normalize_whitespace | replace_regex: "\n+", " "
+    | jsonify -%}
+  {"title": {{ title }}, "url": {{ url }}, "description": {{ description }}, "content": {{ content }}}{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]

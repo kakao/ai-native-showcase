@@ -1,0 +1,318 @@
+// === AI Native Showcase — Minimal layout overrides ==========================
+// Keep existing brand colors & typography
+$brand-primary: #635BDB;   // Heading / accent
+$brand-secondary: #2F195F; // Sidebar background
+$accent-yellow: #E9EA53;
+$link-hover: #9B6EF3;
+$body-bg: #000000;         // Site background
+$body-fg: #ffffff;         // Base text color
+$code-bg: #1a1a1a;         // Code block bg (slightly lighter gray for contrast)
+$code-fg: #f5f7fa;         // Code text
+$code-border: #333;
+
+// Layout tokens
+$sidebar-width: 332px;     // Fixed sidebar width (1.25x original 264px)
+$sidebar-pad-x: 16px;      // Sidebar horizontal padding
+$content-width: 768px;     // Fixed main content width
+$content-pad-x: 12px;      // Main header/content horizontal padding
+$nav-indent: 20px;         // Indentation for nested nav
+
+// === Base ================================================================
+html, body { margin: 0; }
+body {
+  background-color: $body-bg;
+  color: $body-fg;
+  font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Segoe UI', Arial, sans-serif;
+}
+
+a, h1, h2, h3, h4, h5 { color: $brand-primary; font-weight: 700; }
+
+/* Progressive heading sizes */
+a:hover { color: $link-hover; }
+
+// === Responsive layout =====================================================
+$gutter-sm: 16px;        // mobile horizontal padding
+$gutter-md: 12px;        // tablet/desktop horizontal padding
+$sidebar-width-md: 232px; // tablet sidebar width (a bit narrower)
+
+/* Mobile (≤767px): sidebar collapses per JTD, content full width */
+@media (max-width: 767px) {
+  .side-bar {
+    width: 100%;
+    padding-left: $gutter-sm;
+    padding-right: $gutter-sm;
+  }
+  /* Mobile sidebar & nav colors unified with desktop */
+  .side-bar,
+  .site-header,
+  .site-nav {
+    background-color: $brand-secondary;
+    color: $body-fg;
+    border: 0;
+    box-shadow: none;
+  }
+  .site-title,
+  .site-title:visited { color: $body-fg; }
+
+  .site-nav .nav-list { margin: 0; padding: 0; }
+  .site-nav .nav-list .nav-list { padding-left: $nav-indent; }
+
+  /* Remove gradient/alt background on active and hovered items in mobile */
+  .site-nav .nav-list-link,
+  .site-nav .nav-list-link:visited {
+    color: $body-fg;
+    background: transparent !important;
+  }
+  .site-nav .nav-list-item.active > .nav-list-link,
+  .site-nav .nav-list-link:hover {
+    color: $accent-yellow;
+    background: transparent !important;
+  }
+  .site-nav .nav-list-expander { color: $body-fg; }
+
+  .site-title { padding-left: $gutter-sm; padding-right: $gutter-sm; }
+  .site-nav { padding-left: $gutter-sm; padding-right: $gutter-sm; }
+
+  .main { margin-left: 0; padding-top: 0; }
+  .main-header,
+  .main-content-wrap {
+    width: 100%;
+    margin: 0;
+    padding-left: $gutter-sm;
+    padding-right: $gutter-sm;
+    box-sizing: border-box;
+  }
+  .main-content { width: 100%; margin: 0; text-align: left; }
+  .search-input-wrap { background: $brand-secondary; }
+  .search-input { color: $body-fg; }
+}
+
+/* Tablet (768–1023px): narrower sidebar, content width is fluid but capped */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .side-bar {
+    width: $sidebar-width-md;
+    padding-left: $sidebar-pad-x;
+    padding-right: $sidebar-pad-x;
+    background-color: $brand-secondary;
+    color: $body-fg;
+    border: 0; box-shadow: none;
+  }
+  .site-header { background-color: $brand-secondary; }
+  .site-title, .site-title:visited { color: $body-fg; }
+  .site-title {
+    display: block;
+    padding: 10px $sidebar-pad-x;
+    padding-left: $sidebar-pad-x * 2;
+    white-space: nowrap;
+  }
+  .side-bar .site-header,
+  .side-bar .site-title { border-bottom: none !important; box-shadow: none !important; }
+
+  .site-nav { background: $brand-secondary; color: $body-fg; border: 0; }
+  .site-nav .nav-list { margin: 0; padding: 0; }
+  .site-nav .nav-list .nav-list { padding-left: $nav-indent; }
+  .site-nav .nav-list-link, .site-nav .nav-list-link:visited { color: $body-fg; }
+  .site-nav .nav-list-item.active > .nav-list-link,
+  .site-nav .nav-list-link:hover { color: $accent-yellow; }
+
+  .main { margin-left: $sidebar-width-md; padding-top: 0; }
+  /* Content width: min 600, fluid middle, max 800 (including padding) */
+  .main-header,
+  .main-content-wrap {
+    width: clamp(600px, calc(100vw - #{$sidebar-width-md} - 2 * #{$gutter-md}), 800px);
+    margin: 0;
+    padding-left: $gutter-md;
+    padding-right: $gutter-md;
+    box-sizing: border-box;
+  }
+  .main-content { width: 100%; margin: 0; text-align: left; }
+}
+
+/* Desktop (≥1024px): fixed 800px content width next to 264px sidebar */
+@media (min-width: 1024px) {
+  // Sidebar
+  .side-bar {
+    width: $sidebar-width;
+    padding-left: $sidebar-pad-x;
+    padding-right: $sidebar-pad-x;
+    background-color: $brand-secondary;
+    color: $body-fg;
+    border: 0; box-shadow: none;
+  }
+
+  // Ensure all sidebar children use full width
+  .side-bar > * {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .site-header { background-color: $brand-secondary; }
+  .site-title, .site-title:visited { color: $body-fg; }
+  .site-title {
+    display: block;
+    padding: 10px $sidebar-pad-x;
+    width: 100%; // Use full sidebar width
+    box-sizing: border-box; // Include padding in width calculation
+    white-space: nowrap;
+  }
+
+  // Fix site-title with lh-tight class to use full width
+  .site-title.lh-tight {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px $sidebar-pad-x;
+  }
+  .side-bar .site-header,
+  .side-bar .site-title {
+    border-bottom: none !important;
+    box-shadow: none !important;
+  }
+
+  // Sidebar nav (keep indent, expand to full width)
+  .site-nav {
+    background: $brand-secondary;
+    color: $body-fg;
+    border: 0;
+    width: 100%; // Use full sidebar width
+  }
+  .site-nav .nav-list { margin: 0; padding: 0; }
+  .site-nav .nav-list .nav-list { padding-left: $nav-indent; }
+  .site-nav .nav-list-link,
+  .site-nav .nav-list-link:visited {
+    color: $body-fg;
+    display: block; // Make links fill available width
+    padding: 0.25rem $sidebar-pad-x; // Add padding to use full width
+    margin: 0; // Remove default margins
+  }
+  .site-nav .nav-list-item.active > .nav-list-link,
+  .site-nav .nav-list-link:hover {
+    color: $accent-yellow;
+    background-color: rgba(255, 255, 255, 0.05); // Subtle hover background
+  }
+
+  // Fix site-footer to use full sidebar width
+  .site-footer {
+    width: 100%;
+    box-sizing: border-box;
+    padding: $sidebar-pad-x;
+    background-color: $brand-secondary;
+    color: $body-fg;
+  }
+
+  // Main area: stick to the left of content column, next to sidebar
+  .main { margin-left: $sidebar-width; padding-top: 0; }
+  .main-header,
+  .main-content-wrap {
+    width: 800px;                     // fixed content width including padding
+    margin: 0;                        // no centering
+    padding-left: $content-pad-x;     // small breathing space
+    padding-right: $content-pad-x;
+    box-sizing: border-box;
+  }
+  .main-content { width: 100%; margin: 0; text-align: left; }
+}
+
+/* Fluid media and overflow safety */
+.main-content img { max-width: 100%; height: auto; display: block; }
+.main-content table { display: block; overflow-x: auto; }
+
+/* Image caption styling */
+.image-container {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.image-caption {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 0.5rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+// === Minimal code block styling =====================================
+pre, code, .highlight, .highlighter-rouge {
+  background-color: $code-bg !important;  // dark background
+  color: $code-fg !important;             // light text
+  border: none;
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+// === Copy button styling =====================================
+button[aria-label="Copy code to clipboard"] {
+  display: inline-block !important;   // always visible
+  opacity: 1 !important;              // force visible
+  background-color: $brand-secondary !important;
+  color: $body-fg !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  padding: 4px 6px;                   // small padding for visibility
+}
+
+button[aria-label="Copy code to clipboard"]:hover {
+  background-color: lighten($brand-secondary, 15%) !important;
+  color: #fff !important;
+}
+
+/* Fix the copy icon color inside the button */
+button[aria-label="Copy code to clipboard"] .copy-icon {
+  stroke: $body-fg !important;
+  fill: $body-fg !important;   // ensure solid fill so no transparent parts
+}
+
+button[aria-label="Copy code to clipboard"]:hover .copy-icon {
+  stroke: #fff !important;
+  fill: #fff !important;
+}
+
+/* === Breadcrumbs: handled by custom component override === */
+
+/* === Simple TOC Styling === */
+.toc-container {
+  background-color: rgba(99, 91, 219, 0.1);
+  border: 1px solid $brand-primary;
+  border-radius: 6px;
+  margin: 1.5rem 0;
+  padding: 0;
+}
+
+.toc-title {
+  background-color: $brand-primary;
+  color: white;
+  padding: 0.75rem 1rem;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 5px 5px 0 0;
+  font-weight: 600;
+}
+
+.toc-title:hover {
+  background-color: darken($brand-primary, 10%);
+}
+
+.toc-content {
+  padding: 1rem 1rem 1rem 2rem;
+}
+
+.toc-content ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.toc-content li {
+  margin: 0.5rem 0;
+  line-height: 1.4;
+}
+
+.toc-content a {
+  color: $brand-primary;
+  text-decoration: none;
+  display: block; // Better click area
+}
+
+.toc-content a:hover {
+  color: $link-hover;
+  text-decoration: underline;
+}
+
